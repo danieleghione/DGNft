@@ -1,37 +1,21 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.6;
 
-
 import "github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v3.4/contracts/token/ERC721/ERC721.sol";
 
-
-//this contract inherits ERC721
-contract dgnft1 is ERC721 {
-    uint256 public tokenCounter;
+contract dgnft is ERC721 {
+    uint256 public TokenNumero;
     
-    
-    //constructor for an ERC721 is a name and symbol
-    constructor () public ERC721 ("dgnft1", "DGNFT"){
-        tokenCounter = 0;
+    constructor (string memory name, string memory symbol) public ERC721 (name, symbol){
+        TokenNumero = 0;
     }
 
-    //a token url is a ipfs url
-    //after we mint the token we are going to return the id of the token
-    function createNFT(string memory tokenURI) public returns (uint256) {
+    function creaNFT(string memory tokenURI) public returns (uint256) {
 
-    //get number from token counter
-        uint256 newNFTTokenId = tokenCounter;
-
-    //safely mint token for the person that called the function
+        uint256 newNFTTokenId = TokenNumero;
         _safeMint(msg.sender, newNFTTokenId);
-    
-    //set the token uri of the token id of the uri passed
         _setTokenURI(newNFTTokenId, tokenURI);
-    
-    //increment the counter
-        tokenCounter = tokenCounter + 1;
-        
-    //return the token id
+        TokenNumero = TokenNumero + 1;
         return newNFTTokenId;
     }
 
